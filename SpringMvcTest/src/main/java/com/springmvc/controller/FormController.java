@@ -30,10 +30,11 @@ public class FormController {
         System.out.println("User Password is: "+user.password1);
         System.out.println("User age is: " + user.age);
         System.out.println("User Address is: " + user.address);
-        User u1 = userService.add(user);
-        model.addAttribute("user",u1);
+//        User u1 = userService.add(user);
+//        model.addAttribute("user",u1);
 
-        return "form";
+
+        return "redirect:/form";
 
     }
 
