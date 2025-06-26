@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+ <h2>File Upload</h2>
+<form th:action="@{/upload}" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" />
+    <button type="submit">Upload</button>
+</form>
+
+<h2>Uploaded Files</h2>
+<table border="1">
+    <tr>
+        <th>File Name</th>
+        <th>View File</th>
+    </tr>
+
+    <tr th:each="file: ${files}" >
+        <td th:text="${file.fileName}" ></td>
+        <td><a th:href="@{${file.filePath}}" th:text="${file.fileName}" target="_blank"></a></td>
+    </tr>
+</table>
+</body>
+</html>
