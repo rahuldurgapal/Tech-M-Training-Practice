@@ -1,23 +1,33 @@
-package com.springsecurityexample.model;
+package com.springsecurityuser.SpringSecurityRoleAccess.model;
 
-import com.springsecurityexample.service.MyUserDetailService;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MyUserDetail implements UserDetails {
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
-    }
-     private User user;
+    private User user;
+    List<GrantedAuthority> authorities;
 
     public MyUserDetail(User user) {
-        this.user =user;
+        this.user = user;
+        authorities = user.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getName()))
+                .collect(Collectors.toList());
+        System.out.println("User found " + user);
     }
 
+
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        System.out.println("authorities are: " + authorities);
+        return authorities;
+    }
 
     @Override
     public String getPassword() {
